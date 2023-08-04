@@ -11,8 +11,11 @@ def main():
     rows = 10
     my_grid = grid.Grid(cols,rows)
 
+    # return number of objs depending on grid size
+    obj_number = (cols * rows) // 10
+
     # create a pack of random animals
-    elephant_pack = pack.get_pack(3)
+    elephant_pack = pack.get_pack(obj_number)
 
     # add each animal in the pack to the grid
     for eleph in elephant_pack:
@@ -30,7 +33,7 @@ def main():
                 break
 
     res = my_grid.grid
-    
+
     for row in res:
         print(row)
 
