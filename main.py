@@ -1,17 +1,39 @@
+import random
 import time
 
-import grid
 import elephant
+import grid
 import gui
+import pack
 
 def main():
-    my_grid = grid.Grid(8,10)
-    # @TO-DO: randomizer for creating first Elephans
-    first_elephant = elephant.Elephant(0, elephant.Sex.female)
-    my_grid.add(2, 3, first_elephant)
+    cols = 8
+    rows = 10
+    my_grid = grid.Grid(cols,rows)
+
+    # create a pack of random animals
+    elephant_pack = pack.get_pack(3)
+
+    # add each animal in the pack to the grid
+    for eleph in elephant_pack:
+        for _ in range(10):
+            # get random coordinates
+            x = random.randint(0, (cols - 1))
+            y = random.randint(0, (rows - 1))
+            print([x,y])
+            try:
+                # add elephant to the grid
+                my_grid.add(x, y, eleph)
+            except grid.OccupiedSpotsException:
+                pass
+            else:
+                break
+
     res = my_grid.grid
-    print(res)
     
+    for row in res:
+        print(row)
+
     # @TO-DO: refactor to use coordinates not blocks
     #  @TO-DO: renaming
     #  @TO-DO: add comments

@@ -6,7 +6,6 @@ import time
 block_size = 40
 
 def grid_gui(grid):
-    # x, y, get_coordinates = grid.x, grid.y, grid.get_coordinates
     global screen, clock, window_hight, window_width
     # pygame setup
     pygame.init()
