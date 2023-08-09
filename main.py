@@ -1,7 +1,6 @@
 import random
-import time
 
-import elephant
+# import elephant
 import grid
 import gui
 import pack
@@ -23,12 +22,13 @@ def main():
             # get random coordinates
             x = random.randint(0, (cols - 1))
             y = random.randint(0, (rows - 1))
-            print([x,y])
             try:
                 # add elephant to the grid
                 my_grid.add(x, y, eleph)
+            # try again
             except grid.OccupiedSpotsException:
                 pass
+            # exit loop
             else:
                 break
 
@@ -37,11 +37,7 @@ def main():
     for row in res:
         print(row)
 
-    # @TO-DO: refactor to use coordinates not blocks
-    #  @TO-DO: renaming
-    #  @TO-DO: add comments
-
-    gui.grid_gui(my_grid)
+    gui.grid_gui(my_grid.x, my_grid.y, my_grid.get_coordinates)
 
 if __name__ == '__main__':
     main()

@@ -5,12 +5,12 @@ import time
 
 block_size = 40
 
-def grid_gui(grid):
+def grid_gui(x, y, get_coordinates):
     global screen, clock, window_hight, window_width
     # pygame setup
     pygame.init()
-    window_hight = grid.y*block_size
-    window_width = grid.x*block_size
+    window_hight = y*block_size
+    window_width = x*block_size
     screen = pygame.display.set_mode((window_width, window_hight))
     clock = pygame.time.Clock()
     running = True
@@ -25,7 +25,7 @@ def grid_gui(grid):
                 pygame.quit()
                 sys.exit()
 
-        drawObj(grid.get_coordinates())
+        drawObj(get_coordinates())
 
 
 def drawGrid():
@@ -36,10 +36,10 @@ def drawGrid():
 
 def drawObj(obj):
     screen.fill("purple")
-    drawGrid()
     for x, y in obj[0:]:
         rect = pygame.Rect(x*block_size, y*block_size, block_size, block_size)
         pygame.draw.rect(screen, "black", rect)
+    drawGrid()
 
     pygame.display.update()
     time.sleep(3)
