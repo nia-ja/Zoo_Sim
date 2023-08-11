@@ -36,9 +36,9 @@ def drawGrid():
 
 def drawObj(obj):
     screen.fill("purple")
-    for x, y in obj[0:]:
+    for x, y, color in obj[0:]:
         rect = pygame.Rect(x*block_size, y*block_size, block_size, block_size)
-        pygame.draw.rect(screen, "black", rect)
+        pygame.draw.rect(screen, color, rect)
     drawGrid()
 
     pygame.display.update()

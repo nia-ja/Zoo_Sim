@@ -25,23 +25,45 @@ class Grid:
 
     def get_neighbors(self, x, y):
         pass
+    
+    def get_color(self, obj):
+        res =  obj.get_status()
+        if res == "baby":
+            return "yellow"
+        elif res == "mature":
+            return "red"
+        elif res == "dying" or res == "dead":
+            return "black"
+
+        raise ValueError("Invalid status: %s" % res)
 
     def get_coordinates(self):
         self.tick()
+        # clean
+        self.clean_objs()
         return [
-            (x, y)
+            (x, y, self.get_color(obj))
             for (x,y,obj) in self.get_objs_with_xy()
         ]
+    
+    def clean_objs(self):
+        for x, y, obj in self.get_objs_with_xy():
+            if not obj.alive:
+                self.remove(x,y)
     
     def tick(self):
         # move +1 to the right edge
         self.move_objs()
         # +1 to the age
-        self.update_properties()
+        self.tick_objs()
+    
+    def tick_objs(self):
+        for _, _, obj in self.get_objs_with_xy():
+            obj.tick()
     
     def move_objs(self):
         # move separate object
-        for x,y,obj in self.get_objs_with_xy():
+        for x,y,_ in self.get_objs_with_xy():
             x_shift = random.choice([-1, 0, 1])
             y_shift = random.choice([-1, 0, 1])
             self.move(x, y, x+x_shift, y+y_shift)
@@ -69,9 +91,6 @@ class Grid:
             return
         
         self.remove(x1,y1)
-    
-    def update_properties(self):
-        pass
     
 class OccupiedSpotsException(Exception):
     pass
