@@ -25,6 +25,7 @@ def main():
             try:
                 # add elephant to the grid
                 my_grid.add(x, y, eleph)
+                print(eleph.id)
             # try again
             except grid.OccupiedSpotsException:
                 pass

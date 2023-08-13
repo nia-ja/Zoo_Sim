@@ -4,9 +4,12 @@ import random
 Sex = Enum("Sex", "male female")
 
 class Animal:
+    next_id = 0
     def __init__(self, age, sex=Sex.male):
         self.age = age
         self.sex = sex
+        self.id = Animal.next_id
+        Animal.next_id += 1
     
     def get_status(self):
         if self.age <= 1:
@@ -17,6 +20,22 @@ class Animal:
             return "dying"
         else:
             return "dead"
+        
+    def get_obj_description(self):
+        return self.age
+    
+    def get_obj_id(self):
+        return self.id
+    
+    def get_obj_image(self):
+        if self.age >= 10:
+            return "elephant.png"
+        else:
+            if self.sex == Sex.male:
+                return "elephant_blue.png"
+            else:
+                return "elephant_pink.png"
+
     
     @property
     def alive(self):
@@ -32,6 +51,10 @@ class Animal:
         if not self.alive or not partner.alive:
             raise DeadAnimalException("You animal or animals are dead")
         
+        # NEW check for age
+        if 9 < self.age <= 1 or 9 < partner.age <= 1:
+            raise IncompatibleAgeException("Too old or too young for reproduction")
+        
         # randomizer for picking a sex of a new animal
         baby_sex = random.choice(list(Sex))
     
@@ -42,15 +65,21 @@ class Animal:
     
     def tick(self):
         self.age+=1
-    
+
 class Elephant(Animal):
     pass
 
-class IncompatibleBioTypeException(Exception):
+class AnimalException(Exception):
     pass
 
-class IncompatibleSexException(Exception):
+class IncompatibleBioTypeException(AnimalException):
     pass
 
-class DeadAnimalException(Exception):
+class IncompatibleSexException(AnimalException):
+    pass
+
+class DeadAnimalException(AnimalException):
+    pass
+
+class IncompatibleAgeException(AnimalException):
     pass
