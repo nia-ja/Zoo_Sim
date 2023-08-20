@@ -1,6 +1,6 @@
 import unittest
 
-import grid
+import grid.grid as grid
 
 class TestGrid(unittest.TestCase):
     def test_grid_creates_on_init(self):

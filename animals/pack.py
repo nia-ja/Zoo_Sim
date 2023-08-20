@@ -1,10 +1,10 @@
 import random
 
-import elephant
+import animals.elephant as elephant
 
 def get_pack(num):
     res = []
-    
+
     for i in range(num):
         # random age
         age = random.randint(0,2)
